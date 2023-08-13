@@ -1,11 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-declare global {
-  // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined
-}
-
-export const prisma = global.prisma || new PrismaClient()
+export const prisma = (global.prisma as PrismaClient) || new PrismaClient()
 
 export * from '@prisma/client'
 

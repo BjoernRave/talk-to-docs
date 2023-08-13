@@ -1,0 +1,9 @@
+{
+	"id": "k9AGbDBaq5muoF7",
+	"json": "{\"id\":\"k9AGbDBaq5muoF7\",\"url\":\"https://microsoft.github.io/TypeChat/docs/faq/\",\"loadedUrl\":\"https://microsoft.github.io/TypeChat/docs/faq/\",\"uniqueKey\":\"https://microsoft.github.io/TypeChat/docs/faq\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"skipNavigation\":false,\"state\":4}},\"handledAt\":\"2023-08-13T21:42:46.445Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://microsoft.github.io/TypeChat/docs/faq",
+	"url": "https://microsoft.github.io/TypeChat/docs/faq/"
+}

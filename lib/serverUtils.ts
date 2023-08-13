@@ -1,5 +1,6 @@
 import { Readability } from '@mozilla/readability'
 import { Message } from 'ai'
+import { CheerioCrawler, CheerioCrawlingContext, log } from 'crawlee'
 import { JSDOM } from 'jsdom'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import {
@@ -75,4 +76,38 @@ export const convertMessagesToLangChain = (messages: Message[]) => {
     langChainMessages: newMessages,
     question: lastMessage[0].content,
   }
+}
+
+export const getCrawler = ({
+  url,
+  handleRequest,
+}: {
+  url: string
+  handleRequest: (ctx: CheerioCrawlingContext) => Promise<void>
+}) => {
+  const urlObj = new URL(url)
+
+  console.log(urlObj)
+
+  const crawler = new CheerioCrawler({
+    maxConcurrency: 2,
+    maxRequestsPerMinute: 50,
+    maxRequestRetries: 1,
+    requestHandlerTimeoutSecs: 30,
+    maxRequestsPerCrawl: 500,
+    async requestHandler(ctx) {
+      log.debug(`Processing ${ctx.request.url}`)
+
+      await handleRequest(ctx)
+
+      await ctx.enqueueLinks({
+        strategy: 'same-hostname',
+      })
+    },
+    failedRequestHandler({ request }) {
+      log.debug(`Request ${request.url} failed twice.`)
+    },
+  })
+
+  return crawler
 }
