@@ -1,9 +1,0 @@
-{
-	"id": "hVkwA6I60kFjFaw",
-	"json": "{\"id\":\"hVkwA6I60kFjFaw\",\"url\":\"https://microsoft.github.io/TypeChat/\",\"loadedUrl\":\"https://microsoft.github.io/TypeChat/\",\"uniqueKey\":\"https://microsoft.github.io/TypeChat\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"skipNavigation\":false,\"state\":4}},\"handledAt\":\"2023-08-13T21:42:45.836Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://microsoft.github.io/TypeChat",
-	"url": "https://microsoft.github.io/TypeChat/"
-}
