@@ -2,6 +2,7 @@ import { Readability } from '@mozilla/readability'
 import { Message } from 'ai'
 import { CheerioCrawler, CheerioCrawlingContext, log } from 'crawlee'
 import { JSDOM } from 'jsdom'
+import { Document } from 'langchain/document'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import {
   AIMessage,
@@ -110,4 +111,22 @@ export const getCrawler = ({
   })
 
   return crawler
+}
+
+export const combineDocumentsFn = (docs: Document[], separator = '\n\n') => {
+  const serializedDocs = docs.map((doc) => doc.pageContent)
+  return serializedDocs.join(separator)
+}
+
+export const formatVercelMessages = (chatHistory: Message[]) => {
+  const formattedDialogueTurns = chatHistory.map((message) => {
+    if (message.role === 'user') {
+      return `Human: ${message.content}`
+    } else if (message.role === 'assistant') {
+      return `Assistant: ${message.content}`
+    } else {
+      return `${message.role}: ${message.content}`
+    }
+  })
+  return formattedDialogueTurns.join('\n')
 }

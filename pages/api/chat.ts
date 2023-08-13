@@ -1,9 +1,13 @@
-import { Message as VercelChatMessage, streamToResponse } from 'ai'
+import { streamToResponse } from 'ai'
 import { NextResponse } from 'next/server'
 
-import { initVectorDB } from '@/lib/serverUtils'
+import {
+  combineDocumentsFn,
+  formatVercelMessages,
+  initVectorDB,
+} from '@/lib/serverUtils'
+import { ConversationalRetrievalQAChainInput } from '@/lib/types'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
-import { Document } from 'langchain/document'
 import { PromptTemplate } from 'langchain/prompts'
 import {
   BytesOutputParser,
@@ -15,29 +19,6 @@ import {
 } from 'langchain/schema/runnable'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-type ConversationalRetrievalQAChainInput = {
-  question: string
-  chat_history: VercelChatMessage[]
-}
-
-const combineDocumentsFn = (docs: Document[], separator = '\n\n') => {
-  const serializedDocs = docs.map((doc) => doc.pageContent)
-  return serializedDocs.join(separator)
-}
-
-const formatVercelMessages = (chatHistory: VercelChatMessage[]) => {
-  const formattedDialogueTurns = chatHistory.map((message) => {
-    if (message.role === 'user') {
-      return `Human: ${message.content}`
-    } else if (message.role === 'assistant') {
-      return `Assistant: ${message.content}`
-    } else {
-      return `${message.role}: ${message.content}`
-    }
-  })
-  return formattedDialogueTurns.join('\n')
-}
-
 const condenseQuestionTemplate = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question, in its original language.
 
 Chat History:
@@ -48,14 +29,14 @@ const CONDENSE_QUESTION_PROMPT = PromptTemplate.fromTemplate(
   condenseQuestionTemplate
 )
 
-const answerTemplate = `
+const answerInstructions = [
+  'Answer the question in a helpful, productive way.',
+  'The folllowing context could be helpful: {context}',
+  'If the question is unanswerable, answer with "I don\'t know".',
+  'Question: {question}',
+]
 
-Answer the question based only on the following context:
-{context}
-
-Question: {question}
-`
-const ANSWER_PROMPT = PromptTemplate.fromTemplate(answerTemplate)
+const ANSWER_PROMPT = PromptTemplate.fromTemplate(answerInstructions.join('\n'))
 
 /**
  * This handler initializes and calls a retrieval chain. It composes the chain using
@@ -77,9 +58,7 @@ export default async function handler(
       modelName: 'gpt-4',
     })
 
-    const vectorstore = await initVectorDB(body.collection)
-
-    const retriever = vectorstore.asRetriever()
+    const vectorStore = await initVectorDB(body.collection)
 
     /**
      * We use LangChain Expression Language to compose two chains.
@@ -101,7 +80,7 @@ export default async function handler(
 
     const answerChain = RunnableSequence.from([
       {
-        context: retriever.pipe(combineDocumentsFn),
+        context: vectorStore.asRetriever().pipe(combineDocumentsFn),
         question: new RunnablePassthrough(),
       },
       ANSWER_PROMPT,
@@ -119,6 +98,7 @@ export default async function handler(
 
     return streamToResponse(stream, res)
   } catch (e: any) {
+    console.error(e.message)
     return NextResponse.json({ error: e.message }, { status: 500 })
   }
 }

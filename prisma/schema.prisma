@@ -11,10 +11,22 @@ datasource db {
 }
 
 model Collection {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
   name        String
   url         String
   lastRefresh DateTime?
   favIcon     String?
+  pages       SourcePage[]
+}
+
+model SourcePage {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  url          String
+  lastRefresh  DateTime?
+  title        String
+  content      String
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
 }

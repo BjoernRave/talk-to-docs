@@ -1,43 +1,90 @@
+import Input from '@/components/Input'
 import NewCollectionModal from '@/components/NewCollectionModal'
+import Select from '@/components/Select'
 import { useQuery } from '@/lib/api-hooks'
+import { Collection } from '@prisma/client'
 import { useChat } from 'ai/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Chat() {
-  const { data } = useQuery({
+  const { data } = useQuery<Collection[]>({
     route: '/collections/list',
     name: 'getCollection',
   })
-  const [docs, setDocs] = useState('zustand')
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    body: { collection: docs },
+  const [docs, setDocs] = useState(null)
+  const activeDocs = data?.find((d) => d.id === docs)
+  const {
+    messages,
+    setMessages,
+    input,
+    setInput,
+    handleInputChange,
+    handleSubmit,
+  } = useChat({
+    body: { collection: activeDocs?.name },
   })
 
-  return (
-    <div>
-      <select className='select select-bordered w-full max-w-xs'>
-        <option disabled selected>
-          Who shot first?
-        </option>
-        <option>Han Solo</option>
-        <option>Greedo</option>
-      </select>
-      <NewCollectionModal />
+  useEffect(() => {
+    if (data?.length > 0) {
+      setDocs(data[0].id)
+    }
+  }, [data])
 
-      <div className='flex flex-col w-full max-w-md py-24 mx-auto stretch'>
-        {messages.length > 0
-          ? messages.map((m) => (
-              <div key={m.id} className='whitespace-pre-wrap'>
-                {m.role === 'user' ? 'User: ' : 'AI: '}
-                {m.content}
+  useEffect(() => {
+    const input = document.querySelector(`#question`) as HTMLInputElement
+
+    input?.focus()
+  }, [])
+
+  return (
+    <div className='flex flex-col items-center h-screen'>
+      <div className='flex items-end p-4 '>
+        <Select
+          className='mr-4 !my-0'
+          value={docs}
+          onChange={(e) => {
+            setDocs(Number(e.target.value))
+            setMessages([])
+            setInput('')
+            const input = document.querySelector(
+              `#question`
+            ) as HTMLInputElement
+
+            input?.focus()
+          }}
+          label='Dokumentation'
+          options={data?.map((d) => ({ label: d.name, value: d.id }))}
+        />
+
+        <NewCollectionModal />
+      </div>
+      <div className='flex flex-grow flex-col w-full p-2 lg:w-[700px]'>
+        <div className='flex-1 '>
+          {[
+            {
+              role: 'AI',
+              content: `Go ahead and ask something about ${activeDocs?.name}`,
+              id: -1,
+            },
+            ...messages,
+          ].map((m) => (
+            <div
+              key={m.id}
+              className={`chat  ${
+                m.role !== 'user' ? 'chat-start' : 'chat-end'
+              }`}>
+              <div className='chat-bubble'>{m.content}</div>
+              <div className='chat-footer opacity-50'>
+                {m.role === 'user' ? 'You' : 'AI'}
               </div>
-            ))
-          : null}
+            </div>
+          ))}
+        </div>
         <form onSubmit={handleSubmit}>
-          <input
-            className='fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl'
+          <Input
+            id='question'
             value={input}
-            placeholder='Say something...'
+            label='Ask you question'
             onChange={handleInputChange}
           />
         </form>
