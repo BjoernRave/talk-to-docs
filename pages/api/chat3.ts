@@ -1,6 +1,6 @@
-/// app/api/chat/royte.ts
+/// pages/api/chat.ts
 
-import { Message, StreamingTextResponse } from 'ai'
+import { LangChainStream, Message, streamToResponse } from 'ai'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
@@ -11,6 +11,7 @@ import {
   SystemMessage,
 } from 'langchain/schema'
 import { Chroma } from 'langchain/vectorstores/chroma'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export const initVectorDB = async (collection: string) => {
   const vectorStore = await Chroma.fromExistingCollection(
@@ -45,15 +46,15 @@ export const convertMessagesToLangChain = (messages: Message[]) => {
   }
 }
 
-export const runtime = 'nodejs'
-
-export async function POST(req: Request) {
-  const json = await req.json()
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const json = JSON.parse(req.body)
   const messages: Message[] = json.messages
 
   const vectorStore = await initVectorDB('zustand')
 
-  console.log(messages)
   const model = new ChatOpenAI({
     openAIApiKey: process.env.OPENAI_API_KEY as string,
     modelName: 'gpt-3.5-turbo-16k-0613',
@@ -64,12 +65,22 @@ export async function POST(req: Request) {
     vectorStore.asRetriever(),
     {}
   )
-  const { langChainMessages, question } = convertMessagesToLangChain(messages)
-  console.log(langChainMessages, question, 'question')
-  const stream = await chain.stream({
-    chat_history: langChainMessages,
-    question,
-  })
 
-  return new StreamingTextResponse(stream)
+  const { stream, handlers } = LangChainStream()
+
+  const { langChainMessages, question } = convertMessagesToLangChain(messages)
+
+  chain
+    .call(
+      {
+        chat_history: langChainMessages,
+        question,
+      },
+      {
+        callbacks: [handlers],
+      }
+    )
+    .catch(console.error)
+
+  return streamToResponse(stream, res)
 }
