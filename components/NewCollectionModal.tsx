@@ -7,6 +7,7 @@ import Input from './Input'
 const NewCollectionModal: FC<Props> = ({}) => {
   const modalName = 'collection-new-modal'
   const [url, setUrl] = useState('')
+  const [smallestUrl, setSmallestUrl] = useState('')
   const [name, setName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -23,8 +24,15 @@ const NewCollectionModal: FC<Props> = ({}) => {
       body: {
         url,
         name,
+        smallestUrl,
       },
-      onSuccess: () => toast.success('Successfully added the documentation'),
+      onSuccess: () => {
+        toast.success('Successfully added the documentation')
+        window[modalName].close()
+        setName('')
+        setUrl('')
+        setSmallestUrl('')
+      },
     })
 
     setIsLoading(false)
@@ -61,16 +69,36 @@ const NewCollectionModal: FC<Props> = ({}) => {
           <h3 className='font-bold text-lg'>Add Documentation</h3>
           <form className='mt-4' onSubmit={handleSubmit}>
             <Input
+              required
               label='Name of the documentation'
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
+              required
+              type='url'
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               label='Url to the intro page of the documentation'
             />
-            <Button isLoading={isLoading}>Add Documentation </Button>
+            <Input
+              required
+              type='url'
+              value={smallestUrl}
+              onChange={(e) => setSmallestUrl(e.target.value)}
+              label='Smallest url to the documentation'
+            />
+            <p>
+              For example when trying to add the documentation of Zustand, the
+              url would be
+              "https://docs.pmnd.rs/zustand/getting-started/introduction",
+              because that's the intro page, but the smallest url would be
+              "https://docs.pmnd.rs/zustand". This is to make sure only relevant
+              data is scraped.
+            </p>
+            <Button className='mt-4' isLoading={isLoading}>
+              Add Documentation{' '}
+            </Button>
           </form>
         </div>
       </dialog>

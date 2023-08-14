@@ -1,4 +1,7 @@
-import { useQuery as useReactQuery } from '@tanstack/react-query'
+import {
+  useQueryClient,
+  useQuery as useReactQuery,
+} from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import { createQueryParams } from './utils'
 
@@ -51,6 +54,8 @@ export const useMutation = <S = any>({
   route?: string
   method: 'POST' | 'DELETE' | 'PUT'
 }) => {
+  const queryClient = useQueryClient()
+
   return async ({
     body,
     route: innerRoute = route,
@@ -77,6 +82,8 @@ export const useMutation = <S = any>({
         if (onSuccess) {
           await onSuccess(response as S)
         }
+
+        await queryClient.invalidateQueries()
 
         return response as S
       }

@@ -13,8 +13,8 @@ datasource db {
 model Collection {
   id          Int          @id @default(autoincrement())
   createdAt   DateTime     @default(now())
-  name        String
-  url         String
+  name        String       @unique
+  url         String       @unique
   lastRefresh DateTime?
   favIcon     String?
   pages       SourcePage[]
@@ -23,7 +23,7 @@ model Collection {
 model SourcePage {
   id           Int        @id @default(autoincrement())
   createdAt    DateTime   @default(now())
-  url          String
+  url          String     @unique
   lastRefresh  DateTime?
   title        String
   content      String

@@ -81,14 +81,14 @@ export const convertMessagesToLangChain = (messages: Message[]) => {
 
 export const getCrawler = ({
   url,
+  enqueueGlobs,
   handleRequest,
 }: {
   url: string
   handleRequest: (ctx: CheerioCrawlingContext) => Promise<void>
+  enqueueGlobs: string[]
 }) => {
   const urlObj = new URL(url)
-
-  console.log(urlObj)
 
   const crawler = new CheerioCrawler({
     maxConcurrency: 2,
@@ -102,7 +102,8 @@ export const getCrawler = ({
       await handleRequest(ctx)
 
       await ctx.enqueueLinks({
-        strategy: 'same-hostname',
+        globs: enqueueGlobs,
+        baseUrl: urlObj.origin,
       })
     },
     failedRequestHandler({ request }) {

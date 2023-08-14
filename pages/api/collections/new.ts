@@ -10,9 +10,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { url, name } = req.body
+  const { url, name, smallestUrl } = req.body
   console.log(url)
-  if (!url || !name) {
+  if (!url || !name || !smallestUrl) {
     return res.status(400).json({ error: 'Missing body parameter' })
   }
 
@@ -20,9 +20,15 @@ export default async function handler(
 
   const cleanedUrl = url[url.length - 1] === '/' ? url.slice(0, -1) : url
 
+  const cleanedSmallestUrl =
+    smallestUrl[smallestUrl.length - 1] === '/'
+      ? smallestUrl.slice(0, -1)
+      : smallestUrl
+
   const pages: Page[] = []
 
   const crawler = getCrawler({
+    enqueueGlobs: [`${cleanedSmallestUrl}/**`],
     url: cleanedUrl,
     handleRequest: async ({ $, request }) => {
       const title = $('title').text()

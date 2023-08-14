@@ -1,3 +1,4 @@
+import ChatContent from '@/components/ChatContent'
 import Input from '@/components/Input'
 import NewCollectionModal from '@/components/NewCollectionModal'
 import Select from '@/components/Select'
@@ -38,9 +39,9 @@ export default function Chat() {
 
   return (
     <div className='flex flex-col items-center h-screen'>
-      <div className='flex items-end p-4 '>
+      <div className='flex flex-col fixed top-4 right-4'>
         <Select
-          className='mr-4 !my-0'
+          className='my-4'
           value={docs}
           onChange={(e) => {
             setDocs(Number(e.target.value))
@@ -73,7 +74,9 @@ export default function Chat() {
               className={`chat  ${
                 m.role !== 'user' ? 'chat-start' : 'chat-end'
               }`}>
-              <div className='chat-bubble'>{m.content}</div>
+              <div className='chat-bubble'>
+                <ChatContent content={m.content} />
+              </div>
               <div className='chat-footer opacity-50'>
                 {m.role === 'user' ? 'You' : 'AI'}
               </div>
@@ -84,7 +87,7 @@ export default function Chat() {
           <Input
             id='question'
             value={input}
-            label='Ask you question'
+            placeholder='Ask you question here...'
             onChange={handleInputChange}
           />
         </form>
