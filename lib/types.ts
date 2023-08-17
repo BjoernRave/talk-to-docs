@@ -18,3 +18,5 @@ export interface Option {
   value: string | Number
   icon?: string
 }
+
+export type ChatRole = 'user' | 'assistant' | 'function' | 'system'

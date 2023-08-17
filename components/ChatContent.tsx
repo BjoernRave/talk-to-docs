@@ -1,6 +1,6 @@
 import { FC } from 'react'
+import ReactMarkdown from 'react-markdown'
 import CodeBlock from './CodeBlock'
-
 const ChatContent: FC<Props> = ({ content }) => {
   const sections = content.split('```')
   return (
@@ -8,7 +8,11 @@ const ChatContent: FC<Props> = ({ content }) => {
       {sections.map((section, index) => {
         if (index % 2 === 0) {
           // Even sections are regular text
-          return <p key={index}>{section}</p>
+          return (
+            <ReactMarkdown className='prose' key={index}>
+              {section}
+            </ReactMarkdown>
+          )
         } else {
           // Remove language identifier (e.g., bash, typescript)
           const code = section.split('\n').slice(1).join('\n')

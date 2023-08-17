@@ -1,6 +1,6 @@
 import { Readability } from '@mozilla/readability'
 import { Message } from 'ai'
-import { CheerioCrawler, CheerioCrawlingContext, log } from 'crawlee'
+import { PuppeteerCrawler, log } from 'crawlee'
 import { JSDOM } from 'jsdom'
 import { Document } from 'langchain/document'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
@@ -29,9 +29,13 @@ export const transformHtmlToText = (html: string, url: string) => {
     url,
   })
 
+  console.log('docs', doc.window.document)
+
   const reader = new Readability(doc.window.document)
 
   const article: ParseResult = reader.parse()
+
+  console.log(article, 'article')
 
   return article.textContent
 }
@@ -85,23 +89,28 @@ export const getCrawler = ({
   handleRequest,
 }: {
   url: string
-  handleRequest: (ctx: CheerioCrawlingContext) => Promise<void>
+  handleRequest: (html: string, url: string) => Promise<void>
   enqueueGlobs: string[]
 }) => {
   const urlObj = new URL(url)
 
-  const crawler = new CheerioCrawler({
+  const crawler = new PuppeteerCrawler({
     maxConcurrency: 2,
     maxRequestsPerMinute: 50,
     maxRequestRetries: 1,
     requestHandlerTimeoutSecs: 30,
     maxRequestsPerCrawl: 500,
-    async requestHandler(ctx) {
-      log.debug(`Processing ${ctx.request.url}`)
 
-      await handleRequest(ctx)
+    async requestHandler({ page, request, enqueueLinks }) {
+      log.debug(`Processing ${request.url}`)
+      const actorCard = await page.locator('body').wait()
+      // Upon calling one of the locator methods Playwright
+      // waits for the element to render and then accesses it.
+      const actorText = actorCard?.textContent
+      console.log(actorText)
+      await handleRequest(actorText, request.url)
 
-      await ctx.enqueueLinks({
+      await enqueueLinks({
         globs: enqueueGlobs,
         baseUrl: urlObj.origin,
       })

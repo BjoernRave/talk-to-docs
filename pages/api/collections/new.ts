@@ -1,19 +1,38 @@
 import { prisma } from '@/lib/prisma'
 import { getCrawler, parseHtml } from '@/lib/serverUtils'
 import { Page } from '@/lib/types'
-import { ChromaClient } from 'chromadb'
+import cheerio from 'cheerio'
 import { LogLevel, log } from 'crawlee'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { Chroma } from 'langchain/vectorstores/chroma'
 import { NextApiRequest, NextApiResponse } from 'next'
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { url, name, smallestUrl } = req.body
-  console.log(url)
+
   if (!url || !name || !smallestUrl) {
     return res.status(400).json({ error: 'Missing body parameter' })
+  }
+
+  const existingCollectionName = await prisma.collection.findFirst({
+    where: {
+      name,
+    },
+  })
+
+  const existingCollectionUrl = await prisma.collection.findFirst({
+    where: {
+      url,
+    },
+  })
+
+  if (existingCollectionName || existingCollectionUrl) {
+    return res
+      .status(400)
+      .json({ error: 'Collection with that name or url already exists' })
   }
 
   log.setLevel(LogLevel.DEBUG)
@@ -30,15 +49,20 @@ export default async function handler(
   const crawler = getCrawler({
     enqueueGlobs: [`${cleanedSmallestUrl}/**`],
     url: cleanedUrl,
-    handleRequest: async ({ $, request }) => {
+
+    handleRequest: async (html, url) => {
+      const $ = cheerio.load(html)
+
       const title = $('title').text()
       const body = $('body').clone()
 
-      const newDocuments = await parseHtml(body.html(), title, request.url)
+      console.log('html', body.html().length)
+
+      const newDocuments = await parseHtml(body.html(), title, url)
 
       pages.push({
         title,
-        url: request.url,
+        url,
         documents: newDocuments,
         content: body.html(),
       })
@@ -48,11 +72,9 @@ export default async function handler(
   await crawler.run([cleanedUrl])
   log.debug('Crawler finished.')
 
-  const client = new ChromaClient({
-    path: 'http://localhost:8000',
-  })
-
-  await client.reset()
+  if (pages.length === 0) {
+    return res.status(400).json({ error: 'No pages found' })
+  }
 
   const documents = pages
     .flatMap((p) => p.documents)

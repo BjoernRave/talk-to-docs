@@ -21,15 +21,13 @@ export const useQuery = <S>(
   },
   { enabled }: { enabled?: boolean } = {}
 ) => {
-  console.log('test')
   const fetcher: ({}: any) => any = async ({ signal }) => {
-    console.log('fetch', params)
     const response = await fetch(`/api${route}?${createQueryParams(params)}`, {
       signal,
     })
 
     const res = await response.json()
-    console.log(res)
+
     return res
   }
 
@@ -91,7 +89,7 @@ export const useMutation = <S = any>({
       if (
         typeof alertError === 'function' ? alertError(response) : alertError
       ) {
-        toast.error('Error', {
+        toast.error(response.error, {
           duration: 4000,
         })
       }
