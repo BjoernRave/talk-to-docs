@@ -1,97 +1,98 @@
-import ChatContent from '@/components/ChatContent'
+import Button from '@/components/Button'
 import Input from '@/components/Input'
-import NewCollectionModal from '@/components/NewCollectionModal'
-import Select from '@/components/Select'
-import { useQuery } from '@/lib/api-hooks'
-import { Collection } from '@prisma/client'
-import { useChat } from 'ai/react'
+
+import { getServerAuthSession } from '@/lib/serverUtils'
+import { GetServerSideProps, NextPage } from 'next'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
-export default function Chat() {
-  const { data } = useQuery<Collection[]>({
-    route: '/collections/list',
-    name: 'getCollection',
-  })
-  const [docs, setDocs] = useState(null)
-  const activeDocs = data?.find((d) => d.id === docs)
-  const {
-    messages,
-    setMessages,
-    input,
-    setInput,
-    handleInputChange,
-    handleSubmit,
-  } = useChat({
-    body: { collection: activeDocs?.name },
-  })
+const Home: NextPage = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { query, replace } = useRouter()
 
   useEffect(() => {
-    if (data?.length > 0) {
-      setDocs(data[0].id)
+    if (query.error) {
+      toast.error('Login fehlgeschlagen')
+      replace('/')
     }
-  }, [data])
-
-  useEffect(() => {
-    const input = document.querySelector(`#question`) as HTMLInputElement
-
-    input?.focus()
   }, [])
 
+  const [isLoading, setIsLoading] = useState(false)
+  const handleLogin = async ({
+    email,
+    password,
+  }: {
+    email?: string
+    password: string
+  }) => {
+    setIsLoading(true)
+    await signIn('credentials', {
+      email,
+      password,
+
+      callbackUrl: '/',
+    })
+    setIsLoading(false)
+  }
+
   return (
-    <div className='flex flex-col items-center h-screen'>
-      <div className='flex flex-col fixed top-4 right-4'>
-        <Select
-          className='my-4'
-          value={docs}
-          onChange={(e) => {
-            setDocs(Number(e.target.value))
-            setMessages([])
-            setInput('')
-            const input = document.querySelector(
-              `#question`
-            ) as HTMLInputElement
+    <div className='flex min-h-screen items-center justify-center bg-slate-200 p-4 text-sm leading-6 text-slate-900 dark:bg-slate-800 dark:text-slate-300 sm:text-base sm:leading-7 px-4 py-12 sm:px-6 lg:px-8'>
+      <div className='flex w-full max-w-md flex-col items-center space-y-8'>
+        {isLoading ? (
+          <span className='loading loading-infinity loading-md'></span>
+        ) : (
+          <>
+            <h2 className='mt-6 text-center text-3xl font-extrabold '>
+              Sign in
+            </h2>
 
-            input?.focus()
-          }}
-          label='Dokumentation'
-          options={data?.map((d) => ({ label: d.name, value: d.id }))}
-        />
-
-        <NewCollectionModal />
-      </div>
-      <div className='flex flex-grow flex-col w-full p-2 lg:w-[700px]'>
-        <div className='flex-1 '>
-          {[
-            {
-              role: 'AI',
-              content: `Go ahead and ask something about ${activeDocs?.name}`,
-              id: -1,
-            },
-            ...messages,
-          ].map((m) => (
-            <div
-              key={m.id}
-              className={`chat  ${
-                m.role !== 'user' ? 'chat-start' : 'chat-end'
-              }`}>
-              <div className='chat-bubble'>
-                <ChatContent content={m.content} />
-              </div>
-              <div className='chat-footer opacity-50'>
-                {m.role === 'user' ? 'You' : 'AI'}
-              </div>
-            </div>
-          ))}
-        </div>
-        <form onSubmit={handleSubmit}>
-          <Input
-            id='question'
-            value={input}
-            placeholder='Ask you question here...'
-            onChange={handleInputChange}
-          />
-        </form>
+            <form
+              className='flex flex-col items-center'
+              onSubmit={(e) => {
+                e.preventDefault()
+                handleLogin({ email, password })
+              }}>
+              <Input
+                value={email}
+                label='Email'
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Input
+                type='password'
+                value={password}
+                label={'Password'}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Button className='mt-4' isLoading={isLoading}>
+                Anmelden
+              </Button>
+            </form>
+          </>
+        )}
       </div>
     </div>
   )
+}
+
+export default Home
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerAuthSession(context)
+
+  if (!session?.user) {
+    return {
+      props: {},
+    }
+  }
+
+  return {
+    redirect: {
+      destination: '/chat',
+      permanent: false,
+    },
+    props: {},
+  }
 }

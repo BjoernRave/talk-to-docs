@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import {
   combineDocumentsFn,
   formatVercelMessages,
+  getServerAuthSession,
   initVectorDB,
 } from '@/lib/serverUtils'
 import { ConversationalRetrievalQAChainInput } from '@/lib/types'
@@ -31,7 +32,7 @@ const CONDENSE_QUESTION_PROMPT = PromptTemplate.fromTemplate(
 
 const answerInstructions = [
   'Answer the question in a helpful, productive way.',
-  'The folllowing context could be helpful: {context}',
+  'The following context could be helpful: {context}',
   'If the question is unanswerable, answer with "I don\'t know".',
   'Question: {question}',
 ]
@@ -49,6 +50,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    const session = await getServerAuthSession({ req, res })
+
+    if (!session) {
+      res.status(401).json({ error: 'Unauthorized' })
+      return
+    }
+
     const body = JSON.parse(req.body)
     const messages = body.messages ?? []
     const previousMessages = messages.slice(0, -1)

@@ -1,3 +1,4 @@
+import { authOptions as nextAuthOptions } from '@/pages/api/auth/[...nextauth]'
 import { Readability } from '@mozilla/readability'
 import { Message } from 'ai'
 import { PuppeteerCrawler, log } from 'crawlee'
@@ -13,6 +14,16 @@ import {
 import { TokenTextSplitter } from 'langchain/text_splitter'
 import { Chroma } from 'langchain/vectorstores/chroma'
 import { ParseResult } from 'mozilla-readability'
+import type { GetServerSidePropsContext } from 'next'
+import { getServerSession } from 'next-auth'
+
+// Next API route example - /pages/api/restricted.ts
+export const getServerAuthSession = async (ctx: {
+  req: GetServerSidePropsContext['req']
+  res: GetServerSidePropsContext['res']
+}) => {
+  return await getServerSession(ctx.req, ctx.res, nextAuthOptions)
+}
 
 export const splitText = async (text: string) => {
   const chunkSize = 2000

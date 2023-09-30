@@ -13,6 +13,11 @@ const Home: NextPage<Props> = ({}) => {
     route: '/collections/list',
     name: 'getCollection',
   })
+  const { data: chats } = useQuery({
+    name: 'getChats',
+    route: '/chat/list',
+  })
+  const [activeChat, setActiveChat] = useState(null)
   const [docs, setDocs] = useState(null)
   const activeDocs = data?.find((d) => d.id === docs)
   const {
@@ -23,6 +28,7 @@ const Home: NextPage<Props> = ({}) => {
     handleInputChange,
     handleSubmit,
   } = useChat({
+    api: '/api/chat/create',
     body: { collection: activeDocs?.name },
   })
 
