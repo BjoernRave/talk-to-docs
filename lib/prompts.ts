@@ -6,7 +6,7 @@ Chat History:
 {chat_history}
 Follow Up Input: {question}
 Standalone question:`
-export const CONDENSE_QUESTION_PROMPT = PromptTemplate.fromTemplate(
+export const CONDENSE_QUESTION_TEMPLATE = PromptTemplate.fromTemplate(
   condenseQuestionTemplate
 )
 
@@ -17,6 +17,6 @@ const answerInstructions = [
   'Question: {question}',
 ]
 
-export const ANSWER_PROMPT = PromptTemplate.fromTemplate(
+export const ANSWER_TEMPLATE = PromptTemplate.fromTemplate(
   answerInstructions.join('\n')
 )

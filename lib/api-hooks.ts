@@ -26,6 +26,10 @@ export const useQuery = <S>(
       signal,
     })
 
+    if (!response.ok) {
+      toast.error('Could not fetch data from server')
+    }
+
     const res = await response.json()
 
     return res

@@ -1,8 +1,13 @@
 import { useQuery } from '@/lib/api-hooks'
+import { Chat, Collection } from '@prisma/client'
 import { FC } from 'react'
 
-const Settings: FC<Props> = ({}) => {
-  const { data } = useQuery<any>({
+const Settings: FC<Props> = ({
+  activeChat,
+  activeCollection,
+  setActiveCollection,
+}) => {
+  const { data } = useQuery<Collection[]>({
     name: 'getCollections',
     route: '/collections/list',
   })
@@ -38,11 +43,19 @@ const Settings: FC<Props> = ({}) => {
               Collection
             </label>
             <select
+              onChange={(c) =>
+                setActiveCollection(
+                  data.find((d) => String(d.id) === c.target.value)
+                )
+              }
+              value={activeCollection?.id}
               name='select-mode'
               id='select-mode'
               className='mt-2 w-full cursor-pointer rounded-lg border-r-4 border-transparent bg-slate-200 py-3 pl-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-slate-800'>
               {data?.map((d) => (
-                <option key={d.id}>{d.name}</option>
+                <option value={d.id} key={d.id}>
+                  {d.name}
+                </option>
               ))}
             </select>
           </div>
@@ -54,4 +67,8 @@ const Settings: FC<Props> = ({}) => {
 
 export default Settings
 
-interface Props {}
+interface Props {
+  activeChat: Chat
+  activeCollection: Collection
+  setActiveCollection: (c: Collection) => void
+}

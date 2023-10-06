@@ -19,6 +19,7 @@ export default async function handler(
     },
     include: {
       messages: true,
+      collection: true,
     },
   })
 

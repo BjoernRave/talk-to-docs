@@ -14,7 +14,7 @@ import {
 } from 'langchain/schema/runnable'
 import { PrismaVectorStore } from 'langchain/vectorstores/prisma'
 import { Chunk, Prisma, prisma } from './prisma'
-import { ANSWER_PROMPT, CONDENSE_QUESTION_PROMPT } from './prompts'
+import { ANSWER_TEMPLATE, CONDENSE_QUESTION_TEMPLATE } from './prompts'
 import {
   combineDocumentsFn,
   formatVercelMessages,
@@ -27,28 +27,25 @@ export const answerChatQuestionWithContext = async ({
   question,
   chatHistory,
   vectorStore,
+  onEnd,
 }: {
   question: string
   chatHistory: Message[]
   vectorStore: VectorStore
+  onEnd?: (llmResponse: string) => any
 }) => {
   const model = new ChatOpenAI({
     modelName: 'gpt-4',
+    streaming: true,
   })
 
-  /**
-   * We use LangChain Expression Language to compose two chains.
-   * To learn more, see the guide here:
-   *
-   * https://js.langchain.com/docs/guides/expression_language/cookbook
-   */
   const standaloneQuestionChain = RunnableSequence.from([
     {
       question: (input: ConversationalRetrievalQAChainInput) => input.question,
       chat_history: (input: ConversationalRetrievalQAChainInput) =>
         formatVercelMessages(input.chat_history),
     },
-    CONDENSE_QUESTION_PROMPT,
+    CONDENSE_QUESTION_TEMPLATE,
     model,
     new StringOutputParser(),
   ])
@@ -58,7 +55,7 @@ export const answerChatQuestionWithContext = async ({
       context: vectorStore.asRetriever().pipe(combineDocumentsFn),
       question: new RunnablePassthrough(),
     },
-    ANSWER_PROMPT,
+    ANSWER_TEMPLATE,
     model,
     new BytesOutputParser(),
   ])
@@ -75,7 +72,9 @@ export const answerChatQuestionWithContext = async ({
       callbacks: [
         {
           handleLLMEnd: (outputs) => {
-            console.log('outputs', outputs.generations)
+            if (!('llmOutput' in outputs) && onEnd) {
+              onEnd(outputs.generations[0][0].text)
+            }
           },
         },
       ],

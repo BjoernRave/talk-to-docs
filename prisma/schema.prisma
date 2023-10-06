@@ -63,6 +63,7 @@ model Collection {
   user        User?        @relation(fields: [userId], references: [id])
   userId      Int?
   chunks      Chunk[]
+  chats       Chat[]
 }
 
 model Chunk {
@@ -85,12 +86,14 @@ model SourcePage {
 }
 
 model Chat {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  name      String
-  messages  Message[]
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  name         String
+  messages     Message[]
+  user         User       @relation(fields: [userId], references: [id])
+  userId       Int
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
 }
 
 model Message {

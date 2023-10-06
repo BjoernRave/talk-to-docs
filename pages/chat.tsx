@@ -1,9 +1,10 @@
 import History from '@/components/History'
-import Message from '@/components/Message'
+import MessageComponent from '@/components/Message'
 import PromptInput from '@/components/PromptInput'
 import Settings from '@/components/Settings'
 import { useQuery } from '@/lib/api-hooks'
-import { Collection } from '@prisma/client'
+import { Chat, Collection, Message } from '@prisma/client'
+import { useQueryClient } from '@tanstack/react-query'
 import { useChat } from 'ai/react'
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
@@ -14,17 +15,36 @@ const Home: NextPage<Props> = ({}) => {
     name: 'getCollection',
   })
 
-  const [activeChat, setActiveChat] = useState(null)
-  const [docs, setDocs] = useState(null)
-  const activeDocs = data?.find((d) => d.id === docs)
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/chat/create',
-    body: { collectionId: activeDocs?.id, chatId: activeChat?.id },
-  })
+  const [activeChat, setActiveChat] = useState<Chat & { messages: Message[] }>(
+    null
+  )
+  const [collection, setCollection] = useState(null)
+  const queryClient = useQueryClient()
+  const activeDocs = data?.find((d) => d.id === collection)
+  const { messages, setMessages, input, handleInputChange, handleSubmit } =
+    useChat({
+      api: '/api/chat/create',
+      body: { collectionId: activeDocs?.id, chatId: activeChat?.id },
+      onFinish: () => queryClient.invalidateQueries(['getChats']),
+    })
+
+  useEffect(() => {
+    if (activeChat) {
+      setMessages(
+        activeChat.messages.map((m) => ({
+          content: m.content,
+          role: m.type as any,
+          id: String(m.id),
+        }))
+      )
+    } else {
+      setMessages([])
+    }
+  }, [activeChat])
 
   useEffect(() => {
     if (data?.length > 0) {
-      setDocs(data[0].id)
+      setCollection(data[0].id)
     }
   }, [data])
 
@@ -34,9 +54,19 @@ const Home: NextPage<Props> = ({}) => {
     input?.focus()
   }, [])
 
+  useEffect(() => {
+    const input = document.querySelector('#chat-input') as HTMLInputElement
+
+    input?.focus()
+  }, [activeChat])
+
   return (
     <div className='flex h-[100vh] w-full'>
-      <History activeChat={activeChat} setActiveChat={setActiveChat} />
+      <History
+        setCollection={setCollection}
+        activeChat={activeChat}
+        setActiveChat={setActiveChat}
+      />
       <div className='flex w-full flex-col p-4'>
         <div className='flex-1 overflow-y-auto rounded-xl mb-2 bg-slate-200 p-4 text-sm leading-6 text-slate-900 dark:bg-slate-800 dark:text-slate-300 sm:text-base sm:leading-7'>
           {[
@@ -47,7 +77,7 @@ const Home: NextPage<Props> = ({}) => {
             },
             ...messages,
           ].map((m) => (
-            <Message {...m} key={m.id} />
+            <MessageComponent {...m} key={m.id} />
           ))}
         </div>
         <PromptInput
@@ -56,7 +86,11 @@ const Home: NextPage<Props> = ({}) => {
           onSubmit={handleSubmit}
         />
       </div>
-      <Settings />
+      <Settings
+        activeChat={activeChat}
+        setActiveCollection={setCollection}
+        activeCollection={collection}
+      />
     </div>
   )
 }

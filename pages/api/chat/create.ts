@@ -3,7 +3,9 @@ import { answerChatQuestionWithContext } from '@/lib/raq-utils'
 import { getServerAuthSession } from '@/lib/serverUtils'
 import { Chunk, Prisma } from '@prisma/client'
 import { streamToResponse } from 'ai'
+import { ChatOpenAI } from 'langchain/chat_models/openai'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
+import { HumanMessage, SystemMessage } from 'langchain/schema'
 import { PrismaVectorStore } from 'langchain/vectorstores/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
@@ -40,24 +42,76 @@ export default async function handler(
           content: PrismaVectorStore.ContentColumn,
         },
         filter: {
-          collectionId: body.collectionId,
+          collectionId: {
+            equals: body.collectionId,
+          },
         },
       }
     )
+
+    let chatId
+
+    if (!body.chatId) {
+      const llm = new ChatOpenAI({
+        modelName: 'gpt-3.5-turbo',
+      })
+
+      const res = await llm.invoke([
+        new SystemMessage(
+          'You are specialized in summarizing a question to a heading. Only return the heading.'
+        ),
+        new HumanMessage(currentMessageContent),
+      ])
+
+      const chat = await prisma.chat.create({
+        data: {
+          name: res.content,
+          collection: {
+            connect: {
+              id: body.collectionId,
+            },
+          },
+          user: {
+            connect: {
+              id: (session.user as any).id,
+            },
+          },
+        },
+      })
+
+      chatId = chat.id
+    } else {
+      chatId = body.chatId
+    }
 
     const stream = await answerChatQuestionWithContext({
       question: currentMessageContent,
       chatHistory: previousMessages,
       vectorStore,
+      onEnd: async (llmResponse) => {
+        await prisma.chat.update({
+          where: {
+            id: chatId,
+          },
+          data: {
+            messages: {
+              create: [
+                {
+                  content: currentMessageContent,
+                  type: 'user',
+                },
+                {
+                  content: llmResponse,
+                  type: 'assistant',
+                },
+              ],
+            },
+          },
+        })
+      },
     })
 
-    let chunks = ''
-
-    for await (const chunk of stream) {
-      chunks += chunk.toString()
-    }
-
-    return streamToResponse(stream, res)
+    streamToResponse(stream, res)
   } catch (e: any) {
     console.error(e.message)
     return NextResponse.json({ error: e.message }, { status: 500 })

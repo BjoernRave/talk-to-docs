@@ -8,6 +8,7 @@ const PromptInput: FC<Props> = ({ value, onChange, onSubmit }) => {
       </label>
       <div className='relative'>
         <input
+          autoFocus
           value={value}
           onChange={onChange}
           id='chat-input'
