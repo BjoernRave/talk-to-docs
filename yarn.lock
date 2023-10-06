@@ -134,33 +134,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crawlee/basic@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/basic@npm:3.5.4"
+"@crawlee/basic@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/basic@npm:3.5.7"
   dependencies:
     "@apify/log": ^2.4.0
     "@apify/timeout": ^0.3.0
     "@apify/utilities": ^2.7.10
-    "@crawlee/core": 3.5.4
-    "@crawlee/types": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/core": 3.5.7
+    "@crawlee/types": 3.5.7
+    "@crawlee/utils": 3.5.7
     got-scraping: ^3.2.15
     ow: ^0.28.1
     tldts: ^6.0.0
     tslib: ^2.4.0
     type-fest: ^4.0.0
-  checksum: 9b0924f2b32db56bcb1adeffe03b58bf566995374cef7f25a2abbc192b8fbbfea70762cd5481618fed9d789ad5b2957c910bdd18866cb1a134771a1f149bdf1d
+  checksum: 096f233895ce9e27883a65b21a1d9fdb3ae89ec47c70bfe00a3a0bbdb1f9a642ee4c865ce2aa905cdb90a79f8975cb1e22662cf895b79dfaaa5a8692778bff38
   languageName: node
   linkType: hard
 
-"@crawlee/browser-pool@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/browser-pool@npm:3.5.4"
+"@crawlee/browser-pool@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/browser-pool@npm:3.5.7"
   dependencies:
     "@apify/log": ^2.4.0
     "@apify/timeout": ^0.3.0
-    "@crawlee/core": 3.5.4
-    "@crawlee/types": 3.5.4
+    "@crawlee/core": 3.5.7
+    "@crawlee/types": 3.5.7
     fingerprint-generator: ^2.0.6
     fingerprint-injector: ^2.0.5
     lodash.merge: ^4.6.2
@@ -172,50 +172,50 @@ __metadata:
     tiny-typed-emitter: ^2.1.0
     tslib: ^2.4.0
   peerDependencies:
-    playwright: <= 2.x
-    puppeteer: <= 21.1
+    playwright: "*"
+    puppeteer: "*"
   peerDependenciesMeta:
     playwright:
       optional: true
     puppeteer:
       optional: true
-  checksum: 68be5fc0aedef91079733a0166435936b3a8be5d2b3090392eafefe91a3e18a85f8db41d83f9b550b47e1a26f7b580b90047502a2faf2aacb7c55e0872180316
+  checksum: 55da257fb714fa42c28d3c04536e07342acc3500be5afcce015a5d95dc4d50c017ae407301feb099d3ce1d77c2b2b948f67d054d4b2b3a73293a0f80891e62fa
   languageName: node
   linkType: hard
 
-"@crawlee/browser@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/browser@npm:3.5.4"
+"@crawlee/browser@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/browser@npm:3.5.7"
   dependencies:
     "@apify/timeout": ^0.3.0
-    "@crawlee/basic": 3.5.4
-    "@crawlee/browser-pool": 3.5.4
-    "@crawlee/types": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/basic": 3.5.7
+    "@crawlee/browser-pool": 3.5.7
+    "@crawlee/types": 3.5.7
+    "@crawlee/utils": 3.5.7
     ow: ^0.28.1
     tslib: ^2.4.0
-  checksum: a322a562895084aa175e3bc5cb27d442865b91a6b05ec7b0fa0d54ca60feecd7e846107c98a6363e23ba11fd9c73cadf174e418553a16c62718aec8113cc9b85
+  checksum: c44923e295a91aa2559270af6824d74557770fdb64ed25dca00114f41988c06a5b41746f94d8a8ffdcd2768a7d71955fe66fa7edd90ca13aff9bbff74ae3de14
   languageName: node
   linkType: hard
 
-"@crawlee/cheerio@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/cheerio@npm:3.5.4"
+"@crawlee/cheerio@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/cheerio@npm:3.5.7"
   dependencies:
-    "@crawlee/http": 3.5.4
-    "@crawlee/types": 3.5.4
+    "@crawlee/http": 3.5.7
+    "@crawlee/types": 3.5.7
     cheerio: ^1.0.0-rc.12
     htmlparser2: ^9.0.0
     tslib: ^2.4.0
-  checksum: c44d69207f832e7b6e8b376b167b94fc944fdaa28c41b4bf6db0f24b577222319ac616ed93af53c414ce21999d20c699c0b1f54eed3b339d93f4fb2000386000
+  checksum: 0d4bdd277419533f34cff926130df51319f2b4289bce1511a6619f4dc0eb066cbd98220d73df3ff4350884ef12509f57ccd71eaec4a933e1bdde7be0ec77b9a7
   languageName: node
   linkType: hard
 
-"@crawlee/cli@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/cli@npm:3.5.4"
+"@crawlee/cli@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/cli@npm:3.5.7"
   dependencies:
-    "@crawlee/templates": 3.5.4
+    "@crawlee/templates": 3.5.7
     ansi-colors: ^4.1.3
     fs-extra: ^11.0.0
     inquirer: ^8.2.4
@@ -224,13 +224,13 @@ __metadata:
     yargs: ^17.5.1
   bin:
     crawlee: index.js
-  checksum: 712647d2e5ee2c67b56bfc2ef4ec0837be175f1460105972923cc4a5cc569f8157a11c1f746bfba172229c870e36407f607e0544c6f9d8f8b8918d651bb36526
+  checksum: cd24533ee25efad685efb7bd6408cbff99bd19caf83d7f5e798d8e62d274b8bdd2c25c45a0bf871453794a12ed68a82ea18d9375ee7047764b33f199bd4d0965
   languageName: node
   linkType: hard
 
-"@crawlee/core@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/core@npm:3.5.4"
+"@crawlee/core@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/core@npm:3.5.7"
   dependencies:
     "@apify/consts": ^2.20.0
     "@apify/datastructures": ^2.0.0
@@ -238,9 +238,9 @@ __metadata:
     "@apify/pseudo_url": ^2.0.30
     "@apify/timeout": ^0.3.0
     "@apify/utilities": ^2.7.10
-    "@crawlee/memory-storage": 3.5.4
-    "@crawlee/types": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/memory-storage": 3.5.7
+    "@crawlee/types": 3.5.7
+    "@crawlee/utils": 3.5.7
     "@sapphire/async-queue": ^1.5.0
     "@types/tough-cookie": ^4.0.2
     "@vladfrangu/async_event_emitter": ^2.2.2
@@ -255,19 +255,19 @@ __metadata:
     tough-cookie: ^4.0.0
     tslib: ^2.4.0
     type-fest: ^4.0.0
-  checksum: cacaadd90b1f2167dd62d101546db7e44ac5ff190eccd9f017ceea121be2ab4655bc604585ca98433c3920e03a971689b7e1d5396785492f80285aa45ace9d1d
+  checksum: 0f7c717452548bd34486ae54234ed953d2b7671c36ffb7812d82ac9a698af6367417b844bd8a0f9cd4fb2747edc0c75471e418ba5acc8136822a4adc886a0daf
   languageName: node
   linkType: hard
 
-"@crawlee/http@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/http@npm:3.5.4"
+"@crawlee/http@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/http@npm:3.5.7"
   dependencies:
     "@apify/timeout": ^0.3.0
     "@apify/utilities": ^2.7.10
-    "@crawlee/basic": 3.5.4
-    "@crawlee/types": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/basic": 3.5.7
+    "@crawlee/types": 3.5.7
+    "@crawlee/utils": 3.5.7
     "@types/content-type": ^1.1.5
     cheerio: ^1.0.0-rc.12
     content-type: ^1.0.4
@@ -277,48 +277,48 @@ __metadata:
     ow: ^0.28.1
     tslib: ^2.4.0
     type-fest: ^4.0.0
-  checksum: 1777f90f13b655aa28c45c7d6076430ffcc2808ae6d3a9a347780785b4f28c4d0435b4f29344b1f0eb09ade5a530e488eced1037fe63a6290544a3c860a79fff
+  checksum: a3b076bbe30c7728dc111b0845408828016ab2e4f7cb02e0a0186a6dcdde5ae1ba6bd84d0b7a07ffe2fc62f3cc5f9e6509cf814ed1bba459d3fbcbeb279e1605
   languageName: node
   linkType: hard
 
-"@crawlee/jsdom@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/jsdom@npm:3.5.4"
+"@crawlee/jsdom@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/jsdom@npm:3.5.7"
   dependencies:
     "@apify/timeout": ^0.3.0
     "@apify/utilities": ^2.7.10
-    "@crawlee/http": 3.5.4
-    "@crawlee/types": 3.5.4
+    "@crawlee/http": 3.5.7
+    "@crawlee/types": 3.5.7
     "@types/jsdom": ^21.0.0
     cheerio: ^1.0.0-rc.12
     jsdom: ^22.0.0
     ow: ^0.28.2
     tslib: ^2.4.0
-  checksum: 8e69398cb8a51e8244719f74cd60f8d19506c422fda1fba5de33440f5675767fa5f3716a2843685d9b45307abbd7790c1160c08e9bf8a50dc4fbbaf4e7f76d10
+  checksum: 8fe11a1a7da89b7898c985057a593c4ab085dc0bd8ed7c74c604f33e993ea30c6351506bdcb99ec8a86aa9382b8181a194223cb73fa64bac75602749970ae040
   languageName: node
   linkType: hard
 
-"@crawlee/linkedom@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/linkedom@npm:3.5.4"
+"@crawlee/linkedom@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/linkedom@npm:3.5.7"
   dependencies:
     "@apify/timeout": ^0.3.0
     "@apify/utilities": ^2.7.10
-    "@crawlee/http": 3.5.4
-    "@crawlee/types": 3.5.4
+    "@crawlee/http": 3.5.7
+    "@crawlee/types": 3.5.7
     linkedom: ^0.15.0
     ow: ^0.28.2
     tslib: ^2.4.0
-  checksum: f913d531006ebfb63740d18463fa30af4c0536b7c7c56ad954a3726a535be3b5c81983577f13b1acd37ea43e48dd656fd0fb333d115ee2026077103b84ecea42
+  checksum: d01ece7c45549906da01eded6d026aed9513a14ccbc832f3847fb892cf2ed02db01f6ec00eb4e8bda847521d891a23370ba39b37fb5e1dd9911dbde66fd05298
   languageName: node
   linkType: hard
 
-"@crawlee/memory-storage@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/memory-storage@npm:3.5.4"
+"@crawlee/memory-storage@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/memory-storage@npm:3.5.7"
   dependencies:
     "@apify/log": ^2.4.0
-    "@crawlee/types": 3.5.4
+    "@crawlee/types": 3.5.7
     "@sapphire/async-queue": ^1.5.0
     "@sapphire/shapeshift": ^3.0.0
     content-type: ^1.0.4
@@ -327,44 +327,44 @@ __metadata:
     mime-types: ^2.1.35
     proper-lockfile: ^4.1.2
     tslib: ^2.4.0
-  checksum: c04b757086681e365269d9c9729235874d474b80e977ebba10a38a8cc3312c77be6c578179770348b449a343d98c87549739f9c68f5858552ff038f5387db9fb
+  checksum: bb90eb43c5aea69ac2ea470b83fd48ecbd44b3a784df16352fce5af0eab9c1202311f316068c43f8cccbf17b4e5f34af4d0fd55e1b5915007e3be3b1b59a6d12
   languageName: node
   linkType: hard
 
-"@crawlee/playwright@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/playwright@npm:3.5.4"
+"@crawlee/playwright@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/playwright@npm:3.5.7"
   dependencies:
     "@apify/datastructures": ^2.0.0
     "@apify/log": ^2.4.0
-    "@crawlee/browser": 3.5.4
-    "@crawlee/browser-pool": 3.5.4
-    "@crawlee/types": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/browser": 3.5.7
+    "@crawlee/browser-pool": 3.5.7
+    "@crawlee/types": 3.5.7
+    "@crawlee/utils": 3.5.7
     cheerio: ^1.0.0-rc.12
     idcac-playwright: ^0.1.2
     jquery: ^3.6.0
     ow: ^0.28.1
     tslib: ^2.4.0
   peerDependencies:
-    playwright: <= 2.x
+    playwright: "*"
   peerDependenciesMeta:
     playwright:
       optional: true
-  checksum: a5e6341460b246b86a7a5d97885dcc44d97633cd1780672ade687f8c9e968d8b60fabcdd9d913642b1e283a2b60c02933b92e6e83a964bc0fba6d5a1f2ee1be3
+  checksum: 22769280ac6cdc6e7ec84a83c063e82e18fabc4d0a302b83702a9ec1ebbfff3e18d9d54e6f72ffe1243caa0e3f47f88bf19c487ec776bdde7b17db91b223a5c7
   languageName: node
   linkType: hard
 
-"@crawlee/puppeteer@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/puppeteer@npm:3.5.4"
+"@crawlee/puppeteer@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/puppeteer@npm:3.5.7"
   dependencies:
     "@apify/datastructures": ^2.0.0
     "@apify/log": ^2.4.0
-    "@crawlee/browser": 3.5.4
-    "@crawlee/browser-pool": 3.5.4
-    "@crawlee/types": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/browser": 3.5.7
+    "@crawlee/browser-pool": 3.5.7
+    "@crawlee/types": 3.5.7
+    "@crawlee/utils": 3.5.7
     cheerio: ^1.0.0-rc.12
     devtools-protocol: "*"
     idcac-playwright: ^0.1.2
@@ -372,48 +372,48 @@ __metadata:
     ow: ^0.28.1
     tslib: ^2.4.0
   peerDependencies:
-    puppeteer: <= 21.1
+    puppeteer: "*"
   peerDependenciesMeta:
     puppeteer:
       optional: true
-  checksum: e292c33eaa92b8f38018703c7bc3b2253896b7657e4c65f5d6803b2f5d977e9c32936feacf9b703c7377756b721a3f9e8ca3d7808f5bdcc8082f17ab1da13be1
+  checksum: c9feaae45ca2363ae9ad6964367d779b09cef4c841aab4eafbe9dab60077518543db0c1fa989e9124b1dc34e958bb794f919241f46851b3e00ffa9a4061a104e
   languageName: node
   linkType: hard
 
-"@crawlee/templates@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/templates@npm:3.5.4"
+"@crawlee/templates@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/templates@npm:3.5.7"
   dependencies:
     ansi-colors: ^4.1.3
     inquirer: ^9.0.0
     tslib: ^2.4.0
     yargonaut: ^1.1.4
     yargs: ^17.5.1
-  checksum: 38aa51b7425006df5117894d3721d2b7630ec3d4be9a8293219b23bf9e0f92b1f1238a768644308c4c035cefd07008dc91a19901fea844adf4443d39aadea9ad
+  checksum: 23eb01e505caed4e1036251fc449d3099180e44215e51cc9a0ab43e34d45eb93fc9d9b95426ec9a7d78353f67f3bed3924238fe8b13bfa43ba75ee688535f4f6
   languageName: node
   linkType: hard
 
-"@crawlee/types@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/types@npm:3.5.4"
+"@crawlee/types@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/types@npm:3.5.7"
   dependencies:
     tslib: ^2.4.0
-  checksum: 1a7f4359606395646f4f4d75a4f6a602faa2aa912b511c436225972dfd27266daec2a8d5c95d1debfaddba4263f97f2b76759a6c42097852685f622dbadafab2
+  checksum: fa748a3a26a2a2de73386d17c54c0c7b322f69256939c20cc37d6aa9c19dd0a8ed245cea40f0d12ac530f035ddd0f384e46e63bd3a5a2e540f589e41c69fa542
   languageName: node
   linkType: hard
 
-"@crawlee/utils@npm:3.5.4":
-  version: 3.5.4
-  resolution: "@crawlee/utils@npm:3.5.4"
+"@crawlee/utils@npm:3.5.7":
+  version: 3.5.7
+  resolution: "@crawlee/utils@npm:3.5.7"
   dependencies:
     "@apify/log": ^2.4.0
     "@apify/ps-tree": ^1.2.0
-    "@crawlee/types": 3.5.4
+    "@crawlee/types": 3.5.7
     cheerio: ^1.0.0-rc.12
     got-scraping: ^3.2.15
     ow: ^0.28.1
     tslib: ^2.4.0
-  checksum: 1dcfaf2626c924a4432af542c4ed5c9e07ea3d9817a0b52e89c01086d659eeb675ea42efcdeea152b8e6aace65a3b9a21c0f28420b4694856c9c3d2f9bb18dfa
+  checksum: 7bb0fc5af570cf3306d9b47b6ea86d438f06908ed5b7ff201951a9c3fee5a50a2094b8aa2a99e9ec4d82df139231461e48c2bfc332a3b564fea3d0af19c79ded
   languageName: node
   linkType: hard
 
@@ -611,10 +611,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/env@npm:13.5.3"
-  checksum: ebea3bfca114ca66616557a534fbb37d580f1ab91143eb46ba3bdb5803864dc0e72c08814110809f207d625846f0053871adb75b51b68686ec3a9ed76d9d26bf
+"@next/env@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/env@npm:13.5.4"
+  checksum: 95ec7108bc88a01fed5389fb33e4b9eb34937908859d9f0aa87930c660f4395d90dafe10e54830faae5bc0a1b799be544c6455a2c8054499569d1e9296369076
   languageName: node
   linkType: hard
 
@@ -627,65 +627,65 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-darwin-arm64@npm:13.5.3"
+"@next/swc-darwin-arm64@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-darwin-arm64@npm:13.5.4"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-darwin-x64@npm:13.5.3"
+"@next/swc-darwin-x64@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-darwin-x64@npm:13.5.4"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-linux-arm64-gnu@npm:13.5.3"
+"@next/swc-linux-arm64-gnu@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-linux-arm64-gnu@npm:13.5.4"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-linux-arm64-musl@npm:13.5.3"
+"@next/swc-linux-arm64-musl@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-linux-arm64-musl@npm:13.5.4"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-linux-x64-gnu@npm:13.5.3"
+"@next/swc-linux-x64-gnu@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-linux-x64-gnu@npm:13.5.4"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-linux-x64-musl@npm:13.5.3"
+"@next/swc-linux-x64-musl@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-linux-x64-musl@npm:13.5.4"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-win32-arm64-msvc@npm:13.5.3"
+"@next/swc-win32-arm64-msvc@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-win32-arm64-msvc@npm:13.5.4"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-ia32-msvc@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-win32-ia32-msvc@npm:13.5.3"
+"@next/swc-win32-ia32-msvc@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-win32-ia32-msvc@npm:13.5.4"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:13.5.3":
-  version: 13.5.3
-  resolution: "@next/swc-win32-x64-msvc@npm:13.5.3"
+"@next/swc-win32-x64-msvc@npm:13.5.4":
+  version: 13.5.4
+  resolution: "@next/swc-win32-x64-msvc@npm:13.5.4"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -740,31 +740,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@prisma/client@npm:5.3.1"
+"@prisma/client@npm:5.4.1":
+  version: 5.4.1
+  resolution: "@prisma/client@npm:5.4.1"
   dependencies:
-    "@prisma/engines-version": 5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59
+    "@prisma/engines-version": 5.4.1-1.2f302df92bd8945e20ad4595a73def5b96afa54f
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 8017b721a231ab7b2b0f932507b02bf075aae2c6f6e630a69d7089ff33bab44fa50b50dd8a81655b7202092ffc19717d484ae5f183fc4f2a1822b0d228991a7c
+  checksum: 4341c1ae488ae77794b319d6f27297aff31c33ef02cad0f6848f37717048169daacd8686c1911c420d1a2b78e239e00eec76abef3e38eb4278ee082431ec20ee
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59":
-  version: 5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59
-  resolution: "@prisma/engines-version@npm:5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59"
-  checksum: c1adf540c9330a54a000c3005a4621c5d8355f2e3b159121587d33f82bf5992f567ac453f0ce76dd48fac427ec4dbc55942228fcee10d522b0d2c03bddbe422a
+"@prisma/engines-version@npm:5.4.1-1.2f302df92bd8945e20ad4595a73def5b96afa54f":
+  version: 5.4.1-1.2f302df92bd8945e20ad4595a73def5b96afa54f
+  resolution: "@prisma/engines-version@npm:5.4.1-1.2f302df92bd8945e20ad4595a73def5b96afa54f"
+  checksum: 9b4454681df60d48a5984a4e6dde08498c8ff1cacbefc5266926cb74a818a3f3a987d1e55b82d84cd1965f625cc09f7f86f5777ff4e942e961a9bdd773ead2d8
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:5.3.1":
-  version: 5.3.1
-  resolution: "@prisma/engines@npm:5.3.1"
-  checksum: a231adad60ac42569b560ea9782bc181818d8ad15e65283d1317bda5d7aa754e5b536a3f9365ce1eda8961e1eff4eca5978c456fa9764a867fe4339d123e7371
+"@prisma/engines@npm:5.4.1":
+  version: 5.4.1
+  resolution: "@prisma/engines@npm:5.4.1"
+  checksum: 9c0b736ed7265979ffa919099eed86feecca1e0ee867ffd2b38cd30e469f4a341ac484ce793d6cddde9c9d0793ca291a6f9198432396db933b82133cebf1799d
   languageName: node
   linkType: hard
 
@@ -848,18 +848,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.35.3":
-  version: 4.35.3
-  resolution: "@tanstack/query-core@npm:4.35.3"
-  checksum: 0184cd19a26c4f96d05bbebd7966866741d46e5be19ac99d8cd6e5bbeb6550f257e7b52b674fb2673190696e113dd601422d196bf4870b58b4d2e2edf4307e92
+"@tanstack/query-core@npm:4.35.7":
+  version: 4.35.7
+  resolution: "@tanstack/query-core@npm:4.35.7"
+  checksum: b82600ee0b2cea085eb6065d36bf944f4fff72b3fa575b5aa55590498fa431f951c5557a4e7ee36ae5b5de5fd5856cb841b974ff6f78cf773199f0f8c860b6c8
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^4.35.3":
-  version: 4.35.3
-  resolution: "@tanstack/react-query@npm:4.35.3"
+"@tanstack/react-query@npm:^4.35.7":
+  version: 4.35.7
+  resolution: "@tanstack/react-query@npm:4.35.7"
   dependencies:
-    "@tanstack/query-core": 4.35.3
+    "@tanstack/query-core": 4.35.7
     use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -870,7 +870,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 4d7e4e6a8466095848d2924fdbcd2d22a36b53e2d0f79a7dec121c8d7af36ff857b1bae5a7b802f3a399922c9c9f38f2a06372b1fc7b1d5de960e78fa1d3d722
+  checksum: ba4e1aa883a42424085c81d44816fb7ee8efdc8c8d1c190320e78818ce8a45cfcafd2a9c0e217d19ff25b0ec58592c98f5286b5a9b738a799c3ee016a02f9447
   languageName: node
   linkType: hard
 
@@ -1307,13 +1307,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:^2.2.13":
-  version: 2.2.13
-  resolution: "ai@npm:2.2.13"
+"ai@npm:^2.2.14":
+  version: 2.2.14
+  resolution: "ai@npm:2.2.14"
   dependencies:
     eventsource-parser: 1.0.0
     nanoid: 3.3.6
-    openai: 4.2.0
     solid-swr-store: 0.10.7
     sswr: 2.0.0
     swr: 2.2.0
@@ -1333,7 +1332,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: a9217e8d3b8de1e8ea313d5a9a51956ba789060625f8f6dcbbd91933ad42993dd35f1d6fa64c92b8c3a6701afc817297d3630bd09f963f7f6011bb063d570962
+  checksum: c6baf08417193d1137cb3292dd019c252471c2c6aa20725208fdc3f795294371e3705f2508090ce0d78902f6612ffbcf99739aa156ac8553e25dd106c8b8bf7a
   languageName: node
   linkType: hard
 
@@ -2065,15 +2064,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromadb@npm:1.5.6":
-  version: 1.5.6
-  resolution: "chromadb@npm:1.5.6"
-  dependencies:
-    isomorphic-fetch: ^3.0.0
-  checksum: c52c69795a0ae367d1547019ee90a446c66450be771c5f1e3f2f008ccfda5dd882d6778172ce469b428298e9cf343b2fbe8dd692a872c1b3b4078a26e63f79e3
-  languageName: node
-  linkType: hard
-
 "chromium-bidi@npm:0.4.28":
   version: 0.4.28
   resolution: "chromium-bidi@npm:0.4.28"
@@ -2287,27 +2277,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crawlee@npm:^3.5.4":
-  version: 3.5.4
-  resolution: "crawlee@npm:3.5.4"
+"crawlee@npm:^3.5.7":
+  version: 3.5.7
+  resolution: "crawlee@npm:3.5.7"
   dependencies:
-    "@crawlee/basic": 3.5.4
-    "@crawlee/browser": 3.5.4
-    "@crawlee/browser-pool": 3.5.4
-    "@crawlee/cheerio": 3.5.4
-    "@crawlee/cli": 3.5.4
-    "@crawlee/core": 3.5.4
-    "@crawlee/http": 3.5.4
-    "@crawlee/jsdom": 3.5.4
-    "@crawlee/linkedom": 3.5.4
-    "@crawlee/playwright": 3.5.4
-    "@crawlee/puppeteer": 3.5.4
-    "@crawlee/utils": 3.5.4
+    "@crawlee/basic": 3.5.7
+    "@crawlee/browser": 3.5.7
+    "@crawlee/browser-pool": 3.5.7
+    "@crawlee/cheerio": 3.5.7
+    "@crawlee/cli": 3.5.7
+    "@crawlee/core": 3.5.7
+    "@crawlee/http": 3.5.7
+    "@crawlee/jsdom": 3.5.7
+    "@crawlee/linkedom": 3.5.7
+    "@crawlee/playwright": 3.5.7
+    "@crawlee/puppeteer": 3.5.7
+    "@crawlee/utils": 3.5.7
     import-local: ^3.1.0
     tslib: ^2.4.0
   peerDependencies:
-    playwright: <= 2.x
-    puppeteer: <= 21.1
+    playwright: "*"
+    puppeteer: "*"
   peerDependenciesMeta:
     playwright:
       optional: true
@@ -2315,7 +2305,7 @@ __metadata:
       optional: true
   bin:
     crawlee: cli.js
-  checksum: 415675e93983032ff9204d15dfc4738d0c6e37c3eb9226e433de11e160f31d7d76f4bc772a193387870bf7c782a2946975ba5c0c54e2c866d720e118cdec102f
+  checksum: a9281648052fe03ee43fcda554968d0f2479b1c9694f06f3a567ea9458e1951d7c65fe36629250fe482d237c83ceeca44fdcdb1b35d9a828f8ff6f675ce62603
   languageName: node
   linkType: hard
 
@@ -5166,9 +5156,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"langchain@npm:^0.0.156":
-  version: 0.0.156
-  resolution: "langchain@npm:0.0.156"
+"langchain@npm:^0.0.160":
+  version: 0.0.160
+  resolution: "langchain@npm:0.0.160"
   dependencies:
     "@anthropic-ai/sdk": ^0.6.2
     ansi-styles: ^5.0.0
@@ -5190,7 +5180,7 @@ __metadata:
     p-retry: 4
     uuid: ^9.0.0
     yaml: ^2.2.1
-    zod: ^3.21.4
+    zod: ^3.22.3
     zod-to-json-schema: ^3.20.4
   peerDependencies:
     "@aws-crypto/sha256-js": ^5.0.0
@@ -5214,7 +5204,7 @@ __metadata:
     "@mozilla/readability": "*"
     "@notionhq/client": ^2.2.10
     "@opensearch-project/opensearch": "*"
-    "@pinecone-database/pinecone": "*"
+    "@pinecone-database/pinecone": ^1.1.0
     "@planetscale/database": ^1.8.0
     "@qdrant/js-client-rest": ^1.2.0
     "@raycast/api": ^1.55.2
@@ -5244,6 +5234,7 @@ __metadata:
     fast-xml-parser: ^4.2.7
     firebase-admin: ^11.9.0
     google-auth-library: ^8.9.0
+    googleapis: ^126.0.1
     hnswlib-node: ^1.4.2
     html-to-text: ^9.0.5
     ignore: ^5.2.0
@@ -5253,6 +5244,7 @@ __metadata:
     mammoth: "*"
     mongodb: ^5.2.0
     mysql2: ^3.3.3
+    neo4j-driver: "*"
     node-llama-cpp: "*"
     notion-to-md: ^3.1.0
     pdf-parse: 1.1.1
@@ -5378,6 +5370,8 @@ __metadata:
       optional: true
     google-auth-library:
       optional: true
+    googleapis:
+      optional: true
     hnswlib-node:
       optional: true
     html-to-text:
@@ -5395,6 +5389,8 @@ __metadata:
     mongodb:
       optional: true
     mysql2:
+      optional: true
+    neo4j-driver:
       optional: true
     node-llama-cpp:
       optional: true
@@ -5440,7 +5436,7 @@ __metadata:
       optional: true
     youtubei.js:
       optional: true
-  checksum: fdc4b0f31b19c276f7b7400ae9a09ab58b6d00ae49003d03e28a395151e942748dd2bcc2613c2b0486d23cf79b2066b1aa35e001f9107a5336461de6771f4960
+  checksum: d46a640aa5a275281ef9e0a5cd76dffc772a82c082771f0e05e894ffeeb3fc508794051e6aeb01c3f49e201202c6be06f7a4efb8a2270c7070a33da1420cf296
   languageName: node
   linkType: hard
 
@@ -6314,9 +6310,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:^4.23.1":
-  version: 4.23.1
-  resolution: "next-auth@npm:4.23.1"
+"next-auth@npm:^4.23.2":
+  version: 4.23.2
+  resolution: "next-auth@npm:4.23.2"
   dependencies:
     "@babel/runtime": ^7.20.13
     "@panva/hkdf": ^1.0.2
@@ -6335,31 +6331,30 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: 995114797c257ccf71a82d19fb6316fb7709b552aaaf66444591c505a4b8e00b0cae3f4db4316b63a8cc439076044cc391ab171c4f6ee2e086709c5b3bbfed24
+  checksum: 4820fdc8d9f066afd2dfe64012d7aba727fd7b82fec3a94e85ea5c1651cb4bf532d8742bfd253d9910055833f00c1c8f8f17212661f7648ecff4dd1f3e002e80
   languageName: node
   linkType: hard
 
-"next@npm:13.5.3":
-  version: 13.5.3
-  resolution: "next@npm:13.5.3"
+"next@npm:13.5.4":
+  version: 13.5.4
+  resolution: "next@npm:13.5.4"
   dependencies:
-    "@next/env": 13.5.3
-    "@next/swc-darwin-arm64": 13.5.3
-    "@next/swc-darwin-x64": 13.5.3
-    "@next/swc-linux-arm64-gnu": 13.5.3
-    "@next/swc-linux-arm64-musl": 13.5.3
-    "@next/swc-linux-x64-gnu": 13.5.3
-    "@next/swc-linux-x64-musl": 13.5.3
-    "@next/swc-win32-arm64-msvc": 13.5.3
-    "@next/swc-win32-ia32-msvc": 13.5.3
-    "@next/swc-win32-x64-msvc": 13.5.3
+    "@next/env": 13.5.4
+    "@next/swc-darwin-arm64": 13.5.4
+    "@next/swc-darwin-x64": 13.5.4
+    "@next/swc-linux-arm64-gnu": 13.5.4
+    "@next/swc-linux-arm64-musl": 13.5.4
+    "@next/swc-linux-x64-gnu": 13.5.4
+    "@next/swc-linux-x64-musl": 13.5.4
+    "@next/swc-win32-arm64-msvc": 13.5.4
+    "@next/swc-win32-ia32-msvc": 13.5.4
+    "@next/swc-win32-x64-msvc": 13.5.4
     "@swc/helpers": 0.5.2
     busboy: 1.6.0
     caniuse-lite: ^1.0.30001406
-    postcss: 8.4.14
+    postcss: 8.4.31
     styled-jsx: 5.1.1
     watchpack: 2.4.0
-    zod: 3.21.4
   peerDependencies:
     "@opentelemetry/api": ^1.1.0
     react: ^18.2.0
@@ -6391,7 +6386,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: bdf97002aee33e03859bc00c6b4115956c449e33ad5a8060ff6a6bcd1f32405fc3f0d0464c293ac94a45753f3d6da513af2cb7fe730e37163f7b0dda0567ac12
+  checksum: f8e964ee9bbabd0303f9d807c9193833fcc47960be029c3721db9a5a35cc4ff690313e30fc6ee497f959a9141048957dddf6eb038b4a23c78c8762b0cd9d0ae0
   languageName: node
   linkType: hard
 
@@ -6685,24 +6680,6 @@ __metadata:
   dependencies:
     mimic-fn: ^2.1.0
   checksum: 2478859ef817fc5d4e9c2f9e5728512ddd1dbc9fb7829ad263765bb6d3b91ce699d6e2332eef6b7dff183c2f490bd3349f1666427eaba4469fba0ac38dfd0d34
-  languageName: node
-  linkType: hard
-
-"openai@npm:4.2.0":
-  version: 4.2.0
-  resolution: "openai@npm:4.2.0"
-  dependencies:
-    "@types/node": ^18.11.18
-    "@types/node-fetch": ^2.6.4
-    abort-controller: ^3.0.0
-    agentkeepalive: ^4.2.1
-    digest-fetch: ^1.3.0
-    form-data-encoder: 1.7.2
-    formdata-node: ^4.3.2
-    node-fetch: ^2.6.7
-  bin:
-    openai: bin/cli
-  checksum: c2b28e422d7ea6a38a2d98d1c9c933819386d560e473ebcf4417d0cbd80a79f05392120ae32da8b8250732b62469a08270b9b4864e9ff2965aa1af897b986867
   languageName: node
   linkType: hard
 
@@ -7179,14 +7156,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.14":
-  version: 8.4.14
-  resolution: "postcss@npm:8.4.14"
+"postcss@npm:8.4.31, postcss@npm:^8.4.31":
+  version: 8.4.31
+  resolution: "postcss@npm:8.4.31"
   dependencies:
-    nanoid: ^3.3.4
+    nanoid: ^3.3.6
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
-  checksum: fe58766ff32e4becf65a7d57678995cfd239df6deed2fe0557f038b47c94e4132e7e5f68b5aa820c13adfec32e523b693efaeb65798efb995ce49ccd83953816
+  checksum: 1d8611341b073143ad90486fcdfeab49edd243377b1f51834dc4f6d028e82ce5190e4f11bb2633276864503654fb7cab28e67abdc0fbf9d1f88cad4a0ff0beea
   languageName: node
   linkType: hard
 
@@ -7198,17 +7175,6 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 1cdd0c298849df6cd65f7e646a3ba36870a37b65f55fd59d1a165539c263e9b4872a402bf4ed1ca1bc31f58b68b2835545e33ea1a23b161a1f8aa6d5ded81e78
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.31":
-  version: 8.4.31
-  resolution: "postcss@npm:8.4.31"
-  dependencies:
-    nanoid: ^3.3.6
-    picocolors: ^1.0.0
-    source-map-js: ^1.0.2
-  checksum: 1d8611341b073143ad90486fcdfeab49edd243377b1f51834dc4f6d028e82ce5190e4f11bb2633276864503654fb7cab28e67abdc0fbf9d1f88cad4a0ff0beea
   languageName: node
   linkType: hard
 
@@ -7244,14 +7210,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:5.3.1":
-  version: 5.3.1
-  resolution: "prisma@npm:5.3.1"
+"prisma@npm:5.4.1":
+  version: 5.4.1
+  resolution: "prisma@npm:5.4.1"
   dependencies:
-    "@prisma/engines": 5.3.1
+    "@prisma/engines": 5.4.1
   bin:
     prisma: build/index.js
-  checksum: e825adbcb4eec81de276de5507fb7e5486db7788c8c9de36ba6ed73f9e87d9f56b64d0e183a31dc6b80f6737ae1fbcdb110aac44ab89299af646aeb966655bef
+  checksum: 0d8c3af6815fc65b5d2b79329efaa84b3fea41a05f80898cc680404a28fb3d7fa55bb3cb3b69d9108a35e85c23f4f8b708d70c7e4cf42de93142872090f95ed4
   languageName: node
   linkType: hard
 
@@ -7380,9 +7346,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:21.3.6":
-  version: 21.3.6
-  resolution: "puppeteer-core@npm:21.3.6"
+"puppeteer-core@npm:21.3.7":
+  version: 21.3.7
+  resolution: "puppeteer-core@npm:21.3.7"
   dependencies:
     "@puppeteer/browsers": 1.7.1
     chromium-bidi: 0.4.28
@@ -7390,18 +7356,18 @@ __metadata:
     debug: 4.3.4
     devtools-protocol: 0.0.1179426
     ws: 8.14.2
-  checksum: 18f85781d0fc575fc6b5261a242414492e99ba497f914afaef9e3afd62a7ad135dbb63602cca5eae102a91ec8e84838a2bf0d6217bf68ba9b01d2c8b4152faf8
+  checksum: 0ff4d49dcd4ac59fcacfa4798702d579ae072e2f07743b41650273071a39e6dcfe218fe6e36375cc0d5791c32a2f89598952c89349e3b21f66932e456f27f06e
   languageName: node
   linkType: hard
 
-"puppeteer@npm:^21.3.6":
-  version: 21.3.6
-  resolution: "puppeteer@npm:21.3.6"
+"puppeteer@npm:^21.3.7":
+  version: 21.3.7
+  resolution: "puppeteer@npm:21.3.7"
   dependencies:
     "@puppeteer/browsers": 1.7.1
     cosmiconfig: 8.3.6
-    puppeteer-core: 21.3.6
-  checksum: 781dd1061e402dd14fb0d2a522987dc81624437b3cf25eae7dfde26e94a23e992e201d97c9021e002ecd3aae43e1f6a248ec70566c2520a25cd4fabe9e171506
+    puppeteer-core: 21.3.7
+  checksum: 58e05d03f95e88a90cb1b1be7e119d31feeaf1533fefc2b0efe0130eb386ee4f8869a04aade508778fc1acdba2a5a8bcd09de55c8c357336f25b3595bfff838d
   languageName: node
   linkType: hard
 
@@ -8423,21 +8389,20 @@ __metadata:
   dependencies:
     "@mozilla/readability": ^0.4.4
     "@next-auth/prisma-adapter": ^1.0.7
-    "@prisma/client": 5.3.1
+    "@prisma/client": 5.4.1
     "@tailwindcss/typography": ^0.5.10
-    "@tanstack/react-query": ^4.35.3
+    "@tanstack/react-query": ^4.35.7
     "@types/bcrypt": ^5.0.0
     "@types/jsonwebtoken": ^9.0.3
     "@types/mozilla-readability": ^0.2.1
     "@types/node": ^17.0.45
     "@types/react": 18.2.8
     "@types/react-dom": 18.2.4
-    ai: ^2.2.13
+    ai: ^2.2.14
     autoprefixer: ^10.4.16
     bcrypt: ^5.1.1
     cheerio: ^1.0.0-rc.12
-    chromadb: 1.5.6
-    crawlee: ^3.5.4
+    crawlee: ^3.5.7
     daisyui: ^3.8.1
     dotenv: ^16.3.1
     eslint: ^8.50.0
@@ -8445,14 +8410,14 @@ __metadata:
     graphql: ^16.8.1
     jsdom: ^22.1.0
     jsonwebtoken: ^9.0.2
-    langchain: ^0.0.156
-    next: 13.5.3
-    next-auth: ^4.23.1
+    langchain: ^0.0.160
+    next: 13.5.4
+    next-auth: ^4.23.2
     node-fetch: ^3.3.2
     playwright: ^1.38.1
     postcss: ^8.4.31
-    prisma: 5.3.1
-    puppeteer: ^21.3.6
+    prisma: 5.4.1
+    puppeteer: ^21.3.7
     react: 18.2.0
     react-dom: ^18.2.0
     react-hot-toast: ^2.4.1
@@ -9416,16 +9381,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.21.4":
-  version: 3.21.4
-  resolution: "zod@npm:3.21.4"
-  checksum: f185ba87342ff16f7a06686767c2b2a7af41110c7edf7c1974095d8db7a73792696bcb4a00853de0d2edeb34a5b2ea6a55871bc864227dace682a0a28de33e1f
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.21.4":
-  version: 3.22.0
-  resolution: "zod@npm:3.22.0"
-  checksum: b3974ac2c879e1597559d69ad11c331dd4961164fb3a4805d12fe2b3c5b0b6404e4b3acca997d514456f2035140d228f1e9c523a69852937faeb0027f94b6ec0
+"zod@npm:^3.22.3":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 80bfd7f8039b24fddeb0718a2ec7c02aa9856e4838d6aa4864335a047b6b37a3273b191ef335bf0b2002e5c514ef261ffcda5a589fb084a48c336ffc4cdbab7f
   languageName: node
   linkType: hard

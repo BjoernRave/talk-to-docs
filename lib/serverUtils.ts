@@ -4,7 +4,6 @@ import { Message } from 'ai'
 import { PuppeteerCrawler, log } from 'crawlee'
 import { JSDOM } from 'jsdom'
 import { Document } from 'langchain/document'
-import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import {
   AIMessage,
   FunctionMessage,
@@ -12,7 +11,6 @@ import {
   SystemMessage,
 } from 'langchain/schema'
 import { TokenTextSplitter } from 'langchain/text_splitter'
-import { Chroma } from 'langchain/vectorstores/chroma'
 import { ParseResult } from 'mozilla-readability'
 import type { GetServerSidePropsContext } from 'next'
 import { getServerSession } from 'next-auth'
@@ -59,15 +57,6 @@ export const parseHtml = async (html: string, title: string, url: string) => {
   const documents = await splitText(text)
 
   return documents
-}
-
-export const initVectorDB = async (collection: string) => {
-  const vectorStore = await Chroma.fromExistingCollection(
-    new OpenAIEmbeddings(),
-    { collectionName: collection }
-  )
-
-  return vectorStore
 }
 
 export const convertMessagesToLangChain = (messages: Message[]) => {

@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./sqlite.db"
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 model Account {
@@ -62,6 +62,15 @@ model Collection {
   pages       SourcePage[]
   user        User?        @relation(fields: [userId], references: [id])
   userId      Int?
+  chunks      Chunk[]
+}
+
+model Chunk {
+  id           String                 @id @default(cuid())
+  content      String
+  vector       Unsupported("vector")?
+  collection   Collection             @relation(fields: [collectionId], references: [id])
+  collectionId Int
 }
 
 model SourcePage {
