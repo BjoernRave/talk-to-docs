@@ -1,7 +1,7 @@
 import { authOptions as nextAuthOptions } from '@/pages/api/auth/[...nextauth]'
 import { Readability } from '@mozilla/readability'
 import { Message } from 'ai'
-import { PuppeteerCrawler, log } from 'crawlee'
+import { PlaywrightCrawler, log } from 'crawlee'
 import { JSDOM } from 'jsdom'
 import { Document } from 'langchain/document'
 import {
@@ -10,10 +10,17 @@ import {
   HumanMessage,
   SystemMessage,
 } from 'langchain/schema'
-import { TokenTextSplitter } from 'langchain/text_splitter'
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { ParseResult } from 'mozilla-readability'
 import type { GetServerSidePropsContext } from 'next'
 import { getServerSession } from 'next-auth'
+import { tagsToRemove } from './data'
+import {
+  preprocessHtml,
+  removeEmptyTextElements,
+  removeLinks,
+  removeUnnecessaryNodes,
+} from './rag-utils'
 
 // Next API route example - /pages/api/restricted.ts
 export const getServerAuthSession = async (ctx: {
@@ -24,11 +31,7 @@ export const getServerAuthSession = async (ctx: {
 }
 
 export const splitText = async (text: string) => {
-  const chunkSize = 2000
-  const splitter = new TokenTextSplitter({
-    chunkSize: chunkSize,
-    chunkOverlap: 200,
-  })
+  const splitter = new RecursiveCharacterTextSplitter({})
 
   return splitter.createDocuments([text])
 }
@@ -38,13 +41,9 @@ export const transformHtmlToText = (html: string, url: string) => {
     url,
   })
 
-  console.log('docs', doc.window.document)
-
   const reader = new Readability(doc.window.document)
 
   const article: ParseResult = reader.parse()
-
-  console.log(article, 'article')
 
   return article.textContent
 }
@@ -52,7 +51,17 @@ export const transformHtmlToText = (html: string, url: string) => {
 export const parseHtml = async (html: string, title: string, url: string) => {
   if (!html) return Promise.resolve([])
 
-  const text = transformHtmlToText(html, url)
+  const preProcessedHtml = await preprocessHtml({
+    html,
+    url,
+    preProcessors: [
+      (doc) => removeUnnecessaryNodes(doc, tagsToRemove),
+      removeLinks,
+      removeEmptyTextElements,
+    ],
+  })
+
+  const text = transformHtmlToText(preProcessedHtml, url)
 
   const documents = await splitText(text)
 
@@ -94,20 +103,22 @@ export const getCrawler = ({
 }) => {
   const urlObj = new URL(url)
 
-  const crawler = new PuppeteerCrawler({
+  const crawler = new PlaywrightCrawler({
     maxConcurrency: 2,
     maxRequestsPerMinute: 50,
     maxRequestRetries: 1,
     requestHandlerTimeoutSecs: 30,
     maxRequestsPerCrawl: 500,
-
     async requestHandler({ page, request, enqueueLinks }) {
       log.debug(`Processing ${request.url}`)
-      const actorCard = await page.locator('body').wait()
+      await page.locator('body').waitFor()
+
+      const actorCard = page.locator('body')
       // Upon calling one of the locator methods Playwright
       // waits for the element to render and then accesses it.
-      const actorText = actorCard?.textContent
-      console.log(actorText)
+
+      const actorText = await actorCard?.textContent()
+
       await handleRequest(actorText, request.url)
 
       await enqueueLinks({

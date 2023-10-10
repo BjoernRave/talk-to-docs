@@ -18,13 +18,13 @@ const Home: NextPage<Props> = ({}) => {
   const [activeChat, setActiveChat] = useState<Chat & { messages: Message[] }>(
     null
   )
-  const [collection, setCollection] = useState(null)
+  const [collection, setCollection] = useState<Collection>(null)
   const queryClient = useQueryClient()
-  const activeDocs = data?.find((d) => d.id === collection)
+
   const { messages, setMessages, input, handleInputChange, handleSubmit } =
     useChat({
       api: '/api/chat/create',
-      body: { collectionId: activeDocs?.id, chatId: activeChat?.id },
+      body: { collectionId: collection?.id, chatId: activeChat?.id },
       onFinish: () => queryClient.invalidateQueries(['getChats']),
     })
 
@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({}) => {
 
   useEffect(() => {
     if (data?.length > 0) {
-      setCollection(data[0].id)
+      setCollection(data[0])
     }
   }, [data])
 
@@ -72,7 +72,7 @@ const Home: NextPage<Props> = ({}) => {
           {[
             {
               role: 'assistant' as const,
-              content: `Go ahead and ask something about ${activeDocs?.name}`,
+              content: `Go ahead and ask something about ${collection?.name}`,
               id: -1,
             },
             ...messages,
@@ -80,6 +80,7 @@ const Home: NextPage<Props> = ({}) => {
             <MessageComponent {...m} key={m.id} />
           ))}
         </div>
+
         <PromptInput
           value={input}
           onChange={handleInputChange}
@@ -87,6 +88,7 @@ const Home: NextPage<Props> = ({}) => {
         />
       </div>
       <Settings
+        setActiveChat={setActiveChat}
         activeChat={activeChat}
         setActiveCollection={setCollection}
         activeCollection={collection}

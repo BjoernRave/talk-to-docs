@@ -1,7 +1,7 @@
+import { Button } from '@mui/material'
 import { FC, useRef } from 'react'
 import { toast } from 'react-hot-toast'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import Button from './Button'
 
 const CodeBlock: FC<Props> = ({ code, language }) => {
   const codeRef = useRef(null)

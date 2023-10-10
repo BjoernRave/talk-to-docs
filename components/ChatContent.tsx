@@ -9,7 +9,7 @@ const ChatContent: FC<Props> = ({ content }) => {
         if (index % 2 === 0) {
           // Even sections are regular text
           return (
-            <ReactMarkdown className='prose' key={index}>
+            <ReactMarkdown className='prose-invert ' key={index}>
               {section}
             </ReactMarkdown>
           )
@@ -17,8 +17,6 @@ const ChatContent: FC<Props> = ({ content }) => {
           // Remove language identifier (e.g., bash, typescript)
           const code = section.split('\n').slice(1).join('\n')
           const language = section.split('\n')[0]
-
-          console.log(section)
 
           return <CodeBlock key={index} language={language} code={code} />
         }

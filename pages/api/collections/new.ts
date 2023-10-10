@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { addDocumentsToCollection } from '@/lib/raq-utils'
+import { addDocumentsToCollection } from '@/lib/rag-utils'
 import { LogLevel, log } from 'crawlee'
 
 import { NextApiRequest, NextApiResponse } from 'next'

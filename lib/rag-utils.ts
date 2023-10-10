@@ -1,6 +1,7 @@
 import { Message } from 'ai'
 import cheerio from 'cheerio'
 import { LogLevel, log } from 'crawlee'
+import { JSDOM } from 'jsdom'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
 import { VectorStore } from 'langchain/dist/vectorstores/base'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
@@ -119,6 +120,9 @@ export const getCollection = async ({
   })
 }
 
+const removeTrailingSlash = (url: string) =>
+  url[url.length - 1] === '/' ? url.slice(0, -1) : url
+
 export async function addDocumentsToCollection({
   url,
   name,
@@ -132,12 +136,9 @@ export async function addDocumentsToCollection({
 
   const pages: Page[] = []
 
-  const cleanedUrl = url[url.length - 1] === '/' ? url.slice(0, -1) : url
+  const cleanedUrl = removeTrailingSlash(url)
 
-  const cleanedSmallestUrl =
-    smallestUrl[smallestUrl.length - 1] === '/'
-      ? smallestUrl.slice(0, -1)
-      : smallestUrl
+  const cleanedSmallestUrl = removeTrailingSlash(smallestUrl)
 
   const crawler = getCrawler({
     url: cleanedUrl,
@@ -161,6 +162,10 @@ export async function addDocumentsToCollection({
 
   await crawler.run([url])
   log.debug('Crawler finished.')
+
+  if (pages.length === 0) {
+    throw new Error('No pages found.')
+  }
 
   const documents = pages
     .flatMap((p) => p.documents)
@@ -203,4 +208,76 @@ export async function addDocumentsToCollection({
   )
 
   return { collection, pages, documents }
+}
+
+export const removeUnnecessaryNodes = async (
+  doc: JSDOM,
+  selectors: string[]
+) => {
+  for (const tagToRemove of selectors) {
+    const elements = doc.window.document.querySelectorAll(tagToRemove)
+
+    for (const element of elements) {
+      element.remove()
+    }
+  }
+
+  return doc
+}
+
+export const removeLinks = async (doc: JSDOM) => {
+  const links = doc.window.document.querySelectorAll('a')
+
+  for (const link of links) {
+    const text = link.textContent
+    if (text) {
+      link.replaceWith(text)
+    } else {
+      link.remove()
+    }
+  }
+
+  return doc
+}
+
+export function removeEmptyTextElements(doc: JSDOM) {
+  const document = doc.window.document
+
+  // Select all elements
+  const allElements = document.querySelectorAll('*')
+
+  // Loop through all elements to check if they contain text
+  allElements.forEach((element) => {
+    if (!element.textContent.trim()) {
+      // If element has no text content, remove it
+      element.parentNode.removeChild(element)
+    }
+  })
+
+  // Return the updated HTML
+  return doc
+}
+
+export const preprocessHtml = async ({
+  html,
+  url,
+  preProcessors,
+}: {
+  html: string
+  url: string
+  preProcessors: ((doc: JSDOM) => Promise<JSDOM> | JSDOM)[]
+}) => {
+  const doc = new JSDOM(html, {
+    url,
+  })
+
+  let cleanedDoc = doc
+
+  for (const cleaner of preProcessors) {
+    const newCleanedDoc = await cleaner(cleanedDoc)
+
+    cleanedDoc = newCleanedDoc
+  }
+
+  return cleanedDoc.serialize()
 }

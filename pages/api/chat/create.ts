@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { answerChatQuestionWithContext } from '@/lib/raq-utils'
+import { answerChatQuestionWithContext } from '@/lib/rag-utils'
 import { getServerAuthSession } from '@/lib/serverUtils'
 import { Chunk, Prisma } from '@prisma/client'
 import { streamToResponse } from 'ai'
